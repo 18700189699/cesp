@@ -105,7 +105,7 @@ public class TestController {
 
 		char[] helloArray = { 1, 0, 0, 0, 1,0, 0, 0, 0, 0, 0,0,13,8, 0, 0, 0};
 		String str1 = String.valueOf(helloArray );
-
+		String str9 = "";
 		StringBuffer str2 = new StringBuffer(str1);
 		/*StringBuffer sb = new StringBuffer();
 		sb = str.*/
