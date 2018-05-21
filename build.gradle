@@ -1,0 +1,74 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.12.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'  //添加 Java 插件, 表明这是一个 Java 项目
+apply plugin: 'eclipse'  //添加 Eclipse 插件, 添加 Eclipse IDE 支持, Intellij Idea 为 "idea
+apply plugin: 'org.springframework.boot'
+
+group = 'uxsino'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8  //最低兼容版本 JDK1.8
+
+repositories {   //  Maven 仓库
+    mavenCentral()  //使用本地仓库
+}
+
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    runtime('org.postgresql:postgresql')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compileOnly('org.projectlombok:lombok')
+    compile("org.springframework.boot:spring-boot-devtools:1.3.6.RELEASE")
+
+    //Neety相关的Gradle jar包依赖
+    //这是网络通讯Netty的依赖
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.22.Final'
+    compile group: 'org.jboss.netty', name: 'netty', version: '3.2.7.Final'
+
+    compile group: 'com.corundumstudio.socketio', name: 'netty-socketio', version: '1.7.11'
+
+
+    //jboss-marshalling-1.3.0.CR9.jar
+    compile group: 'org.jboss.marshalling', name: 'jboss-marshalling', version: '1.3.0.CR9'
+    //jboss-marshalling-serial-1.3.0.CR9.jar
+    testCompile group: 'org.jboss.marshalling', name: 'jboss-marshalling-serial', version: '1.3.0.CR9'
+    //json所需要的所有jar包（共六个）
+    compile 'net.sf.json-lib:json-lib:2.4:jdk15'
+    compile group: 'net.sf.ezmorph', name: 'ezmorph', version: '1.0.6'
+    compile group: 'commons-logging', name: 'commons-logging', version: '1.1.1'
+    compile group: 'commons-lang', name: 'commons-lang', version: '2.5'
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2.1'
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.8.3'
+
+    compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
+
+    compile 'org.webjars.bower:bootstrap:3.3.6'
+    compile 'org.webjars.bower:jquery:2.2.4'
+    compile("org.webjars:vue:1.0.24")
+    compile 'org.webjars.bower:vue-resource:0.7.0'
+
+    //引入日志框架依赖
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.22'
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    //jsp编译
+    compile 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    compile 'jstl:jstl:1.2'
+
+    compile group: 'org.msgpack', name: 'msgpack', version: '0.6.12'
+}
+
+bootRun {
+    addResources = true
+}

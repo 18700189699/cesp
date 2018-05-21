@@ -1,0 +1,2 @@
+1.项目分为两大功能模块 AgentConsole（管理控制台）EmergencyClient （应急管理端） Netty 为网络通信协议框架，util为公共资源；
+2.各controller已可执行

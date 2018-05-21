@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery.SuperSlide.js}"></script>
+<script type="text/javascript">
+	var apiServer = 'http://127.0.0.1:8099';
+
+	$(function(){
+		$("#login").click(function(){
+			alert(1)
+			 $.ajax({
+				type:'get',
+				url: apiServer + "/first/index",
+				/*data:{
+					name: document.getElementById('name').value,
+					pwd: document.getElementById('pwd').value
+					},*/
+				//alert(data)
+				//console.log(data)
+				dataType :"json",
+				success : function(res){
+					alert("res:"+res)
+					console.log(res)
+                    if(res==null){
+                        window.location.href="indexP.jsp"
+                    }
+				}
+			})
+			
+		})
+	})
+
+</script>
+
+
+
+</head>
+<body>
+	登录页面第二个
+	<form method="get">
+		<input name="name" id="name" type="text" value="请输入姓名"/><br/><br/>
+		<input name="pwd" id="pwd" type="text" value="请输入密码"/><br/><br/>
+		<input type="button" value="提交" id="login"/>
+	</form >
+</body>
+</html>

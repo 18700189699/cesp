@@ -1,0 +1,466 @@
+<!DOCTYPE  html>
+<html lang="en">
+<!-- DW6 -->
+<head>
+    <!-- Copyright 2005 Macromedia, Inc. All rights reserved. -->
+    <meta charset="UTF-8" />
+    <title>EnterSafe PKI 管理工具</title>
+    <link rel="stylesheet" href="image/emx_nav_left.css" type="text/css" />
+    <!-- Codebase="/../Debug/FtCom11.dll#Version=1,0,8,1231\" -->
+    <!-- FtCom11Attribute -->
+    <OBJECT classid="clsid:F97C817C-0E0F-4BFB-B8DB-36438A1DE479" id="Com11Attribute" name="Com11Attribute" ></OBJECT>
+    <!-- FtCom11Token -->
+    <OBJECT classid="clsid:B40AD154-5022-47C3-935D-0926951B64B0" id="Com11Token" name="Com11Token" ></OBJECT>
+    <!-- FtCom11Slot -->
+    <OBJECT classid="clsid:A22FB3C3-8D22-4A52-8F0F-6855BBBAE5A0" id="Com11Slot" name="Com11Slot" ></OBJECT>
+    <!-- FtCom11If -->
+    <OBJECT classid="clsid:A5F1473C-3BAF-4098-885A-9DD332433FD5" id="Com11If" name="Com11If" ></OBJECT>
+    <script type="text/javascript">
+
+//
+    </script>
+</head>
+<body onload="javascript:Init(); showSlotList(1);" onmousemove="closesubnav(event);">
+<!-- pagecell1_div层 -->
+<div id="pagecell1_div">
+
+    <!-- pageName_div层 -->
+    <div id="pageName_div"></div>
+    <!-- end pageName_div -->
+    <!-- pageNav_div层 -->
+    <!-- 页面状态控制层   重要-->
+    <div id="pageCtrl_div"></div>
+    <!-- end pageCtrl_div -->
+    <div id="pageDetailCtrl_div"></div>
+    <!-- end pageDetailCtrl_div -->
+    <div id="pageNav_div">
+        <h5 id="slotlabel"></h5>
+        <!-- slotLinks_div层   重要-->
+        <div id="slotLinks_div" class="slotLinks" style="display: none;">
+
+        </div><!-- end slotLinks_div -->
+
+        <div id="optionLinks_div">
+            <a href="#">用户状态</a>
+            <div id="userStatus_div" style="display:block">
+                <!-- 显示用户状态
+                用户登录状态（可为多个，X为某validSlotID_X的值，显示“X槽已登录”或“X槽未登录”）
+                <input id='loginStatus_X' name='loginStatus_X' value='' readonly='1'>
+                -->
+            </div>
+            <!-- end userStatus_div -->
+
+            <!-- 用户登录层 -->
+            <a href="#" id="in" onclick="Login()">用户登录</a>
+            <input type="text" id="islogin_1" style="display:none"  disabled="disabled"/>
+            <input type="text" id="islogin_2"  style="display:none" disabled="disabled"/>
+            <div id="login_div" style="display:none">
+                请选择：
+                <select id="login_slotSel" name="login_slotSel" style="width:153px " onchange="LoginSelectSlot()" >
+                </select><br/><!-- onpropertychange= "CheckPINLength(this.value)" -->
+                PIN: <input type="password" size="14" id="PIN" disabled="disabled" /><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="button" id="login" onclick="onLogin()" value="确定" disabled="disabled" />
+            </div><!-- end login_div -->
+
+            <!-- 用户修改PIN码层 -->
+            <a href="#" onclick="ModifyUPIN()" >修改用户PIN码</a>
+            <div id="modifyUPIN_div" style="display:none">
+                请选择：
+                <select id="modifyUPIN_slotSel" name="modifyUPIN_slotSel" style="width:153px " onchange="ModifyUPINSelectSlot()" >
+                </select><br/>
+                旧PIN码:&nbsp;&nbsp;&nbsp;<input type="password" size="6" id="old_uPIN" /><br/>
+                新PIN码:&nbsp;&nbsp;&nbsp;<input type="password" size="6" id="new_uPIN" /><br/>
+                确认PIN码: <input type="password" size="6" id="verify_uPIN" /><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="button" id="modifyUPIN" onclick="onModifyUPIN()" value="确定" disabled="disabled" />
+            </div>
+
+            <!-- end modifyUPIN_div -->
+        </div>
+
+    </div><!-- end pageNav_div -->
+
+    <div id="content_div">
+        <!-- 导航条 -->
+        <div style="display:block" id="navigation_div" class="navigation">
+            <a href="#" onclick="showSlotList(0)"> 槽信息 </a> /
+            令牌信息 /
+            对象列表 /
+            对象信息
+        </div><!-- end navigation_div -->
+        <!-- 无信息显示 -->
+        <div style="display:none" id="noneInfo_div" class="info">
+            <h3> no information </h3>
+        </div><!-- end noneInfo_div -->
+        <!-- 槽信息显示 -->
+        <div style="display:none" id="slotInfo_div" class="info">
+        </div><!-- end slotInfo_div -->
+
+        <!-- 槽1信息显示 -->
+        <div  style="display:none" id="slotInfo_div1" class="info">
+            <h3><a href="#" id="Slot_Title_1" onclick=showTokenInfo(1);></a></h3><br>
+            <table width="70%" cellpadding="0" cellspacing="0" summary="">
+                <tr valign="top">
+                    <td class="storyLeft"><p> <a href="#" class="capsule">描述 [SlotDescription]</a></p></td>
+                    <td><p id="Slot_Description_1"> </p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="storyLeft"><p> <a href="#" class="capsule">厂商ID [ManufacturerID]</a></p></td>
+                    <td><p id="Slot_ManufacturerID_1"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="storyLeft"><p> <a href="#" class="capsule">标记 [Flags]</a></p></td>
+                    <td><p id="Slot_Flags_1"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="storyLeft"><p> <a href="#" class="capsule">硬件版本 [HardwareVersion]</a></p></td>
+                    <td><p id="Slot_HardwareVersion_1"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="storyLeft"><p> <a href="#" class="capsule">固件版本 [FirmwareVersion]</a></p></td>
+                    <td><p id="Slot_FirmwareVersion_1"></p></td>
+                </tr>
+            </table>
+        </div><!-- end slotInfo_div1 -->
+        <!-- 槽2信息显示 -->
+        <div  style="display:none" id="slotInfo_div2" class="info">
+            <h3><a href="#" id="Slot_Title_2" onclick=showTokenInfo(2);></a></h3><br>
+            <table width="70%" cellpadding="0" cellspacing="0" summary="">
+                <tr valign="top">
+                    <td class="storyLeft"><p> <a href="#" class="capsule">描述 [SlotDescription]</a></p></td>
+                    <td><p id="Slot_Description_2"> </p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="storyLeft"><p> <a href="#" class="capsule">厂商ID [ManufacturerID]</a></p></td>
+                    <td><p id="Slot_ManufacturerID_2"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="storyLeft"><p> <a href="#" class="capsule">标记 [Flags]</a></p></td>
+                    <td><p id="Slot_Flags_2"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="storyLeft"><p> <a href="#" class="capsule">硬件版本 [HardwareVersion]</a></p></td>
+                    <td><p id="Slot_HardwareVersion_2"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="storyLeft"><p> <a href="#" class="capsule">固件版本 [FirmwareVersion]</a></p></td>
+                    <td><p id="Slot_FirmwareVersion_2"></p></td>
+                </tr>
+            </table>
+        </div><!-- end slotInfo_div2 -->
+        <!-- 令牌信息显示 -->
+        <div  style="display:none" id="tokenInfo_div" class="info">
+            <h3><a href="#" id="Token_Title" ></a></h3><br>
+            <table width="70%" cellpadding="0" cellspacing="0" summary="">
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">标签 [Label]</a></p></td>
+                    <td><p id="Token_Label"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">厂商ID [ManufacturerID]</a></p></td>
+                    <td><p id="Token_ManufacturerID"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">型号 [Model]</a></p></td>
+                    <td><p id="Token_Model"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">序列号 [SerialNumber]</a></p></td>
+                    <td><p id="Token_SerialNumber"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">标记 [Flags]</a></p></td>
+                    <td><p id="Token_Flags"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">会话最大数量 [MaxSessionCount]</a></p></td>
+                    <td><p id="Token_MaxSessionCount"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">实际会话数量 [SessionCount]</a></p></td>
+                    <td><p id="Token_SessionCount"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">读写会话最大数量 [MaxRwSessionCount]</a></p></td>
+                    <td><p id="Token_MaxRwSessionCount"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">实际读写会话数量 [RwSessionCount]</a></p></td>
+                    <td><p id="Token_RwSessionCount"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">最大PIN码位数 [MaxPinLen]</a></p></td>
+                    <td><p id="Token_MaxPinLen"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">最小PIN码位数 [MinPinLen]</a></p></td>
+                    <td><p id="Token_MinPinLen"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">公共数据区总空间 [TotalPublicMemory]</a></p></td>
+                    <td><p id="Token_TotalPublicMemory"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">公共数据区剩余空间 [FreePublicMemory]</a></p></td>
+                    <td><p id="Token_FreePublicMemory"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">私有数据区总空间 [TotalPrivateMemory]</a></p></td>
+                    <td><p id="Token_TotalPrivateMemory"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">私有数据区剩余空间 [FreePrivateMemory]</a></p></td>
+                    <td><p id="Token_FreePrivateMemory"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">硬件版本 [HardwareVersion]</a></p></td>
+                    <td><p id="Token_HardwareVersion"></p></td>
+                </tr>
+                <tr valign="top">
+                    <td class="infoLeft"><p> <a href="#" class="capsule">固件版本 [FirmwareVersion]</a></p></td>
+                    <td><p id="Token_FirmwareVersion"></p></td>
+                </tr>
+            </table>
+        </div><!-- end tokenInfo_div -->
+        <!-- 令牌对象列表显示 -->
+        <div style="display:none" id="objectList_div" class="info">
+            <!-- <h3> 对象列表 </h3><br>
+             <table width="50%" cellpadding="0" cellspacing="0" summary="">
+               <tr valign="top" style="display:none" id="CKO_DATA">
+                 <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showObjectInfo(0)">数据对象 [CKO_DATA]</a></p></td>
+               </tr>
+               <tr valign="top" style="display:none" id="CKO_CERTIFICATE">
+                 <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showObjectInfo(1)">证书对象 [CKO_CERTIFICATE]</a></p></td>
+               </tr>
+               <tr valign="top" style="display:none" id="CKO_PUBLIC_KEY">
+                 <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showObjectInfo(2)">公钥对象 [CKO_PUBLIC_KEY]</a></p></td>
+               </tr>
+               <tr valign="top" style="display:none" id="CKO_PRIVATE_KEY">
+                 <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showObjectInfo(3)">私钥对象 [CKO_PRIVATE_KEY]</a></p></td>
+               </tr>
+             </table>-->
+        </div><!-- end objectList_div -->
+
+        <!-- 令牌对象信息显示 -->
+        <div style="display:none" id="objectInfo_div" class="info">
+            <h3 id="obj_title"> Object Info </h3><br>
+            <!-- 保存当前数据对象的句柄 -->
+            <input type="hidden" id="hObj" value="" />
+            <table width="50%" cellpadding="0" cellspacing="0" summary="">
+                <tr valign="top" style="display:none" id="cka_0">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('0')">[CKA_CLASS]</a></p></td>
+                    <td><p id="attri_len_0"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_1">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('1')">[CKA_TOKEN]</a></p></td>
+                    <td><p id="attri_len_1"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_2">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('2')">[CKA_PRIVATE]</a></p></td>
+                    <td><p id="attri_len_2"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_3">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('3')">[CKA_LABEL]</a></p></td>
+                    <td><p id="attri_len_3"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_10">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('10')">[CKA_APPLICATION]</a></p></td>
+                    <td><p id="attri_len_10"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_80">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('80')">[CKA_CERTIFICATE_TYPE]</a></p></td>
+                    <td><p id="attri_len_80"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_81">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('81')">[CKA_ISSUER]</a></p></td>
+                    <td><p id="attri_len_81"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_82">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('82')">[CKA_SERIAL_NUMBER]</a></p></td>
+                    <td><p id="attri_len_82"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_86">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onClick="showAttribute('86')">[CKA_TRUSTED]</a></p></td>
+                    <td><p id="attri_len_86"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_100">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('100')">[CKA_KEY_TYPE]</a></p></td>
+                    <td><p id="attri_len_100"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_101">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('101')">[CKA_SUBJECT]</a></p></td>
+                    <td><p id="attri_len_101"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_102">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('102')">[CKA_ID]</a></p></td>
+                    <td><p id="attri_len_102"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_103">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('103')">[CKA_SENSITIVE]</a></p></td>
+                    <td><p id="attri_len_103"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_104">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('104')">[CKA_ENCRYPT]</a></p></td>
+                    <td><p id="attri_len_104"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_105">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('105')">[CKA_DECRYPT]</a></p></td>
+                    <td><p id="attri_len_105"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_106">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('106')">[CKA_WRAP]</a></p></td>
+                    <td><p id="attri_len_106"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_107">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('107')">[CKA_UNWRAP]</a></p></td>
+                    <td><p id="attri_len_107"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_108">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('108')">[CKA_SIGN]</a></p></td>
+                    <td><p id="attri_len_108"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_109">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('109')">[CKA_SIGN_RECOVER]</a></p></td>
+                    <td><p id="attri_len_109"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_10A">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('10A')">[CKA_VERIFY]</a></p></td>
+                    <td><p id="attri_len_10A"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_10B">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('10B')">[CKA_VERIFY_RECOVER]</a></p></td>
+                    <td><p id="attri_len_10B"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_10C">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('10C')">[CKA_DERIVE]</a></p></td>
+                    <td><p id="attri_len_10C"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_110">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('110')">[CKA_START_DATE]</a></p></td>
+                    <td><p id="attri_len_110"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_111">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('111')">[CKA_END_DATE]</a></p></td>
+                    <td><p id="attri_len_111"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_120">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('120')">[CKA_MODULUS]</a></p></td>
+                    <td><p id="attri_len_120"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_121">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('121')">[CKA_MODULUS_BITS]</a></p></td>
+                    <td><p id="attri_len_121"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_122">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('122')">[CKA_PUBLIC_EXPONENT]</a></p></td>
+                    <td><p id="attri_len_122"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_123">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('123')">[CKA_PRIVATE_EXPONENT]</a></p></td>
+                    <td><p id="attri_len_123"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_124">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('124')">[CKA_PRIME_1]</a></p></td>
+                    <td><p id="attri_len_124"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_125">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('125')">[CKA_PRIME_2]</a></p></td>
+                    <td><p id="attri_len_125"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_126">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('126')">[CKA_EXPONENT_1]</a></p></td>
+                    <td><p id="attri_len_126"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_127">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('127')">[CKA_EXPONENT_2]</a></p></td>
+                    <td><p id="attri_len_127"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_128">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('128')">[CKA_COEFFICIENT]</a></p></td>
+                    <td><p id="attri_len_128"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_162">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('162')">[CKA_EXTRACTABLE]</a></p></td>
+                    <td><p id="attri_len_162"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_163">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('163')">[CKA_LOCAL]</a></p></td>
+                    <td><p id="attri_len_163"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_164">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('164')">[CKA_NEVER_EXTRACTABLE]</a></p></td>
+                    <td><p id="attri_len_164"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_165">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('165')">[CKA_ALWAYS_SENSITIVE]</a></p></td>
+                    <td><p id="attri_len_165"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_170">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('170')">[CKA_MODIFIABLE]</a></p></td>
+                    <td><p id="attri_len_170"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_80455053">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('80455053')">[CKA_CONTAINER_NAME]</a></p></td>
+                    <td><p id="attri_len_80455053"></p></td>
+                </tr>
+                <tr valign="top" style="display:none" id="cka_11">
+                    <td class="storyLeft"><p> <a href="#" class="capsule" onclick="showAttribute('11')">[CKA_VALUE]</a></p></td>
+                    <td><p id="attri_len_11"></p></td>
+                </tr>
+            </table>
+            <input id="CertViewer" type="button" style="display:none" value="显示系统证书查看器" onclick="onCertViewer()">
+            <br>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_0" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_1" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_2" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_3" ></textarea>
+
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_10" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_11" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_80" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_81" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_82" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_86" ></textarea>
+
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_100" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_101" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_102" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_103" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_104" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_105" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_106" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_107" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_108" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_109" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_10A" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_10B" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_10C" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_110" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_111" ></textarea>
+
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_120" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_121" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_122" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_123" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_124" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_125" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_126" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_127" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_128" ></textarea>
+
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_162" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_163" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_164" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_165" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_170" ></textarea>
+            <textarea rows="10" cols="65" style="display:none;" runat="server" id="valuearea_80455053" ></textarea>
+        </div><!-- end objectInfo_div -->
+
+    </div><!-- end content_div -->
+
+</div><!--end pagecell1-->
+</body>
+</html>

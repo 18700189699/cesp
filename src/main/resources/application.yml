@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/test
+    username: postgres
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: postgresql
+  mvc:
+    view:
+      prefix: /WEB-INF/view/
+      suffix: .jsp
+
+server:
+  port: 8099
+
+#logging:
+#  pattern:
+#    #日志格式
+#    console: "%d - %msg%n"
+#  #path: D:\uxsino
+#  #日志名字和路径
+#  file: D:\uxsino\CESP.log
+#  #日志级别
+#  level:
+#    com.uxsino.LoggerTest: debug

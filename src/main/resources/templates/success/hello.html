@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+<link rel="shortcut icon" href="../11111.ico"/>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.SuperSlide.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+	var apiServer = 'http://127.0.0.1:8099';
+
+    $(function(){
+        alert(999)
+        var ret = [[${#httpServletRequest.getSession().getAttribute("return")}]];
+        alert([[${#httpServletRequest.getSession().getAttribute("return")}]]);
+        console.log(ret)
+        for(i in ret){
+            alert(ret[i].name)
+            //alert(inf1[i].id);
+            console.log("============"+ret[i].id)
+        }
+        //这个是虚拟路径获取工程路径
+        var basePath02 = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]
+        //var basePath03 = /*[[@{/index/ajaxtest}]]*/
+        alert(basePath02);
+        alert(666)
+		$("#add").click(function(){
+			 alert(1);
+			 $.ajax({
+                 type:'get',
+                 //url: apiServer + "/queryUserLog",
+                 url:/*[[@{/queryUserLog}]]*/,
+                 /*data:{
+                     name: document.getElementById('name').value,
+                     pwd: document.getElementById('pwd').value
+                     },*/
+                 //alert(data)
+                 //console.log(data)
+                 dataType :"json",
+				success : function(res){
+                    var inf1 = res.map1;
+                    for(i in inf1){
+                        //alert(JSON.stringify(inf1[i]))
+                        alert(inf1[i].id);
+                        console.log("============"+inf1[i].id)
+					}
+                    /*var inf = JSON.stringify(inf1)
+					alert("res:"+inf);
+					console.log("============"+inf)
+                    //var window.sessionStorage.ux_usbkey_pid = res
+                    window.location.href = apiServer+"/first/hello2";*/
+				},
+				error : function (e) {
+                    alert("查询失败");
+                }
+			})
+		})
+	})
+
+</script>
+
+</head>
+<body>
+	登录页面111
+	<div>
+		<input id="name" type="text" value=""/><br/><br/>
+		<input id="age" type="text"/><br/><br/>
+		<input type="button" value="提交" id="add"/>
+	</div>
+</body>
+</html>
