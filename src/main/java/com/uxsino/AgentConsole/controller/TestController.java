@@ -105,11 +105,12 @@ public class TestController {
 
 		char[] helloArray = { 1, 0, 0, 0, 1,0, 0, 0, 0, 0, 0,0,13,8, 0, 0, 0};
 		String str1 = String.valueOf(helloArray );
+		String str= "";
 		StringBuffer str2 = new StringBuffer(str1);
 		/*StringBuffer sb = new StringBuffer();
 		sb = str.*/
 		str2 = str2.append("scnouser");
-		String str = str2.toString();
+		String str9 = str2.toString();
 		System.out.println(str);
 
 		char[] chars = new char[1036];
